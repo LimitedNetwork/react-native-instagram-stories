@@ -20,7 +20,7 @@ const StoryView = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = STORY_ANIMATION_DURATION,
   storyAnimationDuration = STORY_ANIMATION_DURATION, hideElementsOnLongPress,
   onLoad, onShow, onHide,
-  onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, isFullScreen, isCloseVisible, ...props
+  onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, footerComponent, isFullScreen, isCloseVisible, ...props
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -489,6 +489,7 @@ const StoryView = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
             ) )}
           </View>
         </Pressable>
+      {footerComponent && footerComponent}
     </View>
   );
 

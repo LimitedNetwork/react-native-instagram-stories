@@ -29,6 +29,7 @@ export interface InstagramStoryProps {
   renderStoryHeader?: () => ReactNode;
   name?: string;
   stories: StoryItemProps[];
+  onStoryHeaderPress?: () => void;
 }
 
 export interface InstagramStoriesProps {

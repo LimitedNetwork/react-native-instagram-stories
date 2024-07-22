@@ -42,6 +42,7 @@ export interface StoryModalProps {
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
+  footerComponent?: ReactNode;
   hideElementsOnLongPress?: boolean;
   isFullScreen?: boolean;
   isCloseVisible?: boolean;
@@ -123,6 +124,7 @@ export interface StoryHeaderProps {
   isCloseVisible?: boolean;
   onClose: () => void;
   renderStoryHeader?: () => ReactNode;
+  onStoryHeaderPress?: () => void;
 }
 
 export interface IconProps {

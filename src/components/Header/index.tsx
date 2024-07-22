@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 import {
-  View, Text, Image, TouchableOpacity,
+  View, Text, Image, TouchableOpacity, Pressable
 } from 'react-native';
 import { WIDTH } from '../../core/constants';
 import HeaderStyles from './Header.styles';
@@ -9,7 +9,7 @@ import Close from '../Icon/close';
 
 const StoryHeader: FC<StoryHeaderProps> = ( {
   avatarSource, imgUrl, name, onClose, avatarSize, textStyle, closeColor, headerStyle,
-  headerContainerStyle, renderStoryHeader, isCloseVisible,
+  headerContainerStyle, renderStoryHeader, onStoryHeaderPress, isCloseVisible,
 } ) => {
 
   const styles = { width: avatarSize, height: avatarSize, borderRadius: avatarSize };
@@ -33,14 +33,14 @@ const StoryHeader: FC<StoryHeaderProps> = ( {
       { width }, headerContainerStyle,
     ]}
     >
-      <View style={[ HeaderStyles.left, headerStyle ]}>
+      <Pressable style={[ HeaderStyles.left, headerStyle ]} onPress={() => onStoryHeaderPress?.()}>
         {( Boolean( avatarSource ) || Boolean( imgUrl ) ) && (
           <View style={[ HeaderStyles.avatar, { borderRadius: styles.borderRadius } ]}>
             <Image source={avatarSource ?? { uri: imgUrl }} style={styles} />
           </View>
         )}
         {Boolean( name ) && <Text style={textStyle}>{name}</Text>}
-      </View>
+      </Pressable>
       {isCloseVisible && (
         <TouchableOpacity
           onPress={onClose}
