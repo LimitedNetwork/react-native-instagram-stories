@@ -94,8 +94,8 @@ jest.mock('react-native-gesture-handler', () => {
   return {
     PanGestureHandler: ({onGestureEvent, children}) => (
       <View
-        onResponderStart={onGestureEvent.onStart} 
-        onResponderEnd={onGestureEvent.onFinish} 
+        onResponderStart={onGestureEvent.onStart}
+        onResponderEnd={onGestureEvent.onFinish}
         onResponderMove={onGestureEvent.onActive}
         testID="gestureContainer"
       >
@@ -113,13 +113,21 @@ jest.mock('./src/core/helpers/storage', () => ({
   setProgressStorage: jest.fn(),
 }));
 
+jest.mock('react-native-safe-area-context', () => ({
+  useSafeAreaInsets: () => {
+    return { top: 0, bottom: 0, left: 0, right: 0 };
+  },
+}));
+
+
+
 jest.mock('./src/components/Image/video', () => {
 
   const React = require('react');
   const { View } = require('react-native');
 
   return ( props ) => {
-  
+
     const { onLoad, onLayout } = props;
 
     onLoad?.(10000);

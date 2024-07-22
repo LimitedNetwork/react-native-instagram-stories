@@ -2,6 +2,7 @@ import React, { FC, memo } from 'react';
 import Animated, {
   useAnimatedStyle, useDerivedValue, useSharedValue, withTiming,
 } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import StoryAnimation from '../Animation';
 import ListStyles from './List.styles';
 import StoryImage from '../Image';
@@ -11,7 +12,6 @@ import { StoryListProps } from '../../core/dto/componentsDTO';
 import { HEIGHT } from '../../core/constants';
 import StoryContent from '../Content';
 import StoryFooter from '../Footer';
-import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const StoryList: FC<StoryListProps> = ( {
   id, stories, index, x, activeUser, activeStory, progress, seenStories, paused,

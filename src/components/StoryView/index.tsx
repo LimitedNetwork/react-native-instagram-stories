@@ -11,9 +11,8 @@ import {
   HEIGHT, LONG_PRESS_DURATION, STORY_ANIMATION_DURATION, WIDTH,
 } from '../../core/constants';
 import { GestureContext, StoryModalProps, StoryModalPublicMethods } from '../../core/dto/componentsDTO';
-import GestureHandler from './gesture';
 import StoryList from '../List';
-import ModalStyles from './Modal.styles';
+import StoryViewStyles from './StoryView.styles';
 
 const StoryView = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
@@ -444,17 +443,17 @@ const StoryView = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   );
 
   return (
-    <View testID="storyRNView" style={ModalStyles.absolute}>
+    <View testID="storyRNView" style={StoryViewStyles.absolute}>
         <Pressable
           onPressIn={onPressIn}
           onPress={onPress}
           onLongPress={onLongPress}
           onPressOut={onPressOut}
           delayLongPress={LONG_PRESS_DURATION}
-          style={ModalStyles.container}
+          style={StoryViewStyles.container}
         >
-          <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
-          <View style={[ ModalStyles.absolute, containerStyle ]}>
+          <Animated.View style={[ StoryViewStyles.bgAnimation, backgroundAnimatedStyles ]} />
+          <View style={[ StoryViewStyles.absolute, containerStyle ]}>
             {stories?.map( ( story, index ) => (
               <StoryList
                 {...story}
