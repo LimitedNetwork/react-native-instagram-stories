@@ -4,10 +4,10 @@ import React, {
 import { LayoutChangeEvent } from 'react-native';
 import { runOnJS, useAnimatedReaction } from 'react-native-reanimated';
 import { StoryVideoProps } from '../../core/dto/componentsDTO';
-import { WIDTH } from '../../core/constants';
+import {HEIGHT, WIDTH} from '../../core/constants';
 
 const StoryVideo: FC<StoryVideoProps> = ( {
-  source, paused, isActive, onLoad, onLayout, ...props
+  source, paused, isActive, onLoad, onLayout, isFullScreen, ...props
 } ) => {
 
   try {
@@ -41,12 +41,19 @@ const StoryVideo: FC<StoryVideoProps> = ( {
     return (
       <Video
         ref={ref}
-        style={{ width: WIDTH, aspectRatio: 0.5626 }}
+        {...(
+          isFullScreen ? {
+            resizeMode: 'cover',
+            style: { width: WIDTH, height: HEIGHT },
+          } : {
+            style: { width: WIDTH, aspectRatio: 0.5626 },
+          }
+        )}
+        repeat={false}
         {...props}
         source={source}
         paused={pausedValue}
         controls={false}
-        repeat={false}
         onLoad={( { duration }: { duration: number } ) => onLoad( duration * 1000 )}
         onLayout={( e: LayoutChangeEvent ) => onLayout( e.nativeEvent.layout.height )}
       />

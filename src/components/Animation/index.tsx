@@ -13,6 +13,7 @@ const StoryAnimation: FC<AnimationProps> = ( { children, x, index } ) => {
   const inputRange = [ offset - WIDTH, offset + WIDTH ];
   const maskInputRange = [ offset - WIDTH, offset, offset + WIDTH ];
 
+  // @ts-ignore
   const animatedStyle = useAnimatedStyle( () => {
 
     const translateX = interpolate(

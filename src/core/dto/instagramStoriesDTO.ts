@@ -27,7 +27,6 @@ export interface InstagramStoryProps {
   avatarSource?: ImageProps['source'];
   renderAvatar?: () => ReactNode;
   renderStoryHeader?: () => ReactNode;
-  onStoryHeaderPress?: () => void;
   name?: string;
   stories: StoryItemProps[];
 }
@@ -61,6 +60,9 @@ export interface InstagramStoriesProps {
   closeIconColor?: string;
   progressActiveColor?: string;
   progressColor?: string;
+  isModalRepresentation?: boolean;
+  isFullScreen?: boolean;
+  isCloseVisible?: boolean;
   modalAnimationDuration?: number;
   storyAnimationDuration?: number;
   mediaContainerStyle?: ViewStyle;

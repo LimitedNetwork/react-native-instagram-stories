@@ -1,7 +1,7 @@
 import React, {
   forwardRef, memo, useEffect, useImperativeHandle, useState,
 } from 'react';
-import { GestureResponderEvent, Modal, Pressable } from 'react-native';
+import { GestureResponderEvent, View, Pressable } from 'react-native';
 import Animated, {
   cancelAnimation, interpolate, runOnJS, useAnimatedGestureHandler, useAnimatedReaction,
   useAnimatedStyle,
@@ -15,7 +15,7 @@ import GestureHandler from './gesture';
 import StoryList from '../List';
 import ModalStyles from './Modal.styles';
 
-const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
+const StoryView = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
   backgroundColor, videoProps, closeIconColor, modalAnimationDuration = STORY_ANIMATION_DURATION,
   storyAnimationDuration = STORY_ANIMATION_DURATION, hideElementsOnLongPress,
@@ -444,58 +444,54 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   );
 
   return (
-    <Modal visible={visible} transparent animationType="none" testID="storyRNModal" onRequestClose={onClose}>
-      <GestureHandler onGestureEvent={onGestureEvent}>
-        <Animated.View style={ModalStyles.container} testID="storyModal">
-          <Pressable
-            onPressIn={onPressIn}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            onPressOut={onPressOut}
-            delayLongPress={LONG_PRESS_DURATION}
-            style={ModalStyles.container}
-          >
-            <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
-            <Animated.View style={[ ModalStyles.absolute, animatedStyles, containerStyle ]}>
-              {stories?.map( ( story, index ) => (
-                <StoryList
-                  {...story}
-                  index={index}
-                  x={x}
-                  activeUser={userId}
-                  activeStory={currentStory}
-                  progress={animation}
-                  seenStories={seenStories}
-                  onClose={onClose}
-                  onLoad={( value ) => {
+    <View testID="storyRNView" style={ModalStyles.absolute}>
+        <Pressable
+          onPressIn={onPressIn}
+          onPress={onPress}
+          onLongPress={onLongPress}
+          onPressOut={onPressOut}
+          delayLongPress={LONG_PRESS_DURATION}
+          style={ModalStyles.container}
+        >
+          <Animated.View style={[ ModalStyles.bgAnimation, backgroundAnimatedStyles ]} />
+          <View style={[ ModalStyles.absolute, containerStyle ]}>
+            {stories?.map( ( story, index ) => (
+              <StoryList
+                {...story}
+                index={index}
+                x={x}
+                activeUser={userId}
+                activeStory={currentStory}
+                progress={animation}
+                seenStories={seenStories}
+                onClose={onClose}
+                onLoad={( value ) => {
 
-                    onLoad?.();
-                    startAnimation(
-                      undefined,
-                      value !== undefined ? value : duration,
-                    );
+                  onLoad?.();
+                  startAnimation(
+                    undefined,
+                    value !== undefined ? value : duration,
+                  );
 
-                  }}
-                  avatarSize={storyAvatarSize}
-                  textStyle={textStyle}
-                  paused={paused}
-                  videoProps={videoProps}
-                  closeColor={closeIconColor}
-                  hideElements={hideElements}
-                  videoDuration={videoDuration}
-                  key={story.id}
-                  isFullScreen={isFullScreen}
-                  isCloseVisible={isCloseVisible}
-                  {...props}
-                />
-              ) )}
-            </Animated.View>
-          </Pressable>
-        </Animated.View>
-      </GestureHandler>
-    </Modal>
+                }}
+                avatarSize={storyAvatarSize}
+                textStyle={textStyle}
+                paused={paused}
+                videoProps={videoProps}
+                closeColor={closeIconColor}
+                hideElements={hideElements}
+                videoDuration={videoDuration}
+                key={story.id}
+                isFullScreen={isFullScreen}
+                isCloseVisible={isCloseVisible}
+                {...props}
+              />
+            ) )}
+          </View>
+        </Pressable>
+    </View>
   );
 
 } );
 
-export default memo( StoryModal );
+export default memo( StoryView );

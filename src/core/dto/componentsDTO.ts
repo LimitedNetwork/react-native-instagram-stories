@@ -42,8 +42,9 @@ export interface StoryModalProps {
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
-  footerComponent?: ReactNode;
   hideElementsOnLongPress?: boolean;
+  isFullScreen?: boolean;
+  isCloseVisible?: boolean;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -89,6 +90,7 @@ export interface StoryImageProps {
   isActive: SharedValue<boolean>;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
+  isFullScreen?: boolean;
   videoDuration?: number;
   onImageLayout: ( height: number ) => void;
   onLoad: ( duration?: number ) => void;
@@ -118,9 +120,9 @@ export interface StoryHeaderProps {
   closeColor: string;
   headerStyle?: ViewStyle;
   headerContainerStyle?: ViewStyle;
+  isCloseVisible?: boolean;
   onClose: () => void;
   renderStoryHeader?: () => ReactNode;
-  onStoryHeaderPress?: () => void;
 }
 
 export interface IconProps {
@@ -147,6 +149,8 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
   imageProps?: ImageProps;
+  isFullScreen?: boolean;
+  isCloseVisible?: boolean;
   progressContainerStyle?: ViewStyle;
   imageOverlayView?: ReactNode;
   hideElements: SharedValue<boolean>;
@@ -157,6 +161,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
 export interface StoryVideoProps {
   source: ImageProps['source'];
   paused: SharedValue<boolean>;
+  isFullScreen?: boolean;
   isActive: SharedValue<boolean>;
   onLoad: ( duration: number ) => void;
   onLayout: ( height: number ) => void;

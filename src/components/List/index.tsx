@@ -11,11 +11,12 @@ import { StoryListProps } from '../../core/dto/componentsDTO';
 import { HEIGHT } from '../../core/constants';
 import StoryContent from '../Content';
 import StoryFooter from '../Footer';
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const StoryList: FC<StoryListProps> = ( {
   id, stories, index, x, activeUser, activeStory, progress, seenStories, paused,
   onLoad, videoProps, progressColor, progressActiveColor, mediaContainerStyle, imageStyles,
-  imageProps, progressContainerStyle, imageOverlayView, hideElements, videoDuration, ...props
+  imageProps, progressContainerStyle, imageOverlayView, hideElements, videoDuration, isFullScreen, isCloseVisible, ...props
 } ) => {
 
   const imageHeight = useSharedValue( HEIGHT );
@@ -40,6 +41,8 @@ const StoryList: FC<StoryListProps> = ( {
     ( item ) => item.id === seenStories.value[id],
   );
 
+  const { bottom: bottomInset, top: topInset } = useSafeAreaInsets();
+
   return (
     <StoryAnimation x={x} index={index}>
       <Animated.View style={[ animatedStyles, ListStyles.container ]}>
@@ -57,8 +60,12 @@ const StoryList: FC<StoryListProps> = ( {
           imageStyles={imageStyles}
           imageProps={imageProps}
           videoDuration={videoDuration}
+          isFullScreen={isFullScreen}
+
         />
-        <Animated.View style={[ contentStyles, ListStyles.content ]}>
+        <Animated.View style={[ contentStyles, ListStyles.content,
+          {marginTop: isFullScreen ? topInset : 0, marginBottom: isFullScreen ?  bottomInset : 0 }
+        ]}>
           {imageOverlayView}
           <Progress
             active={isActive}
@@ -69,7 +76,7 @@ const StoryList: FC<StoryListProps> = ( {
             progressActiveColor={progressActiveColor}
             progressContainerStyle={progressContainerStyle}
           />
-          <StoryHeader {...props} />
+          <StoryHeader isCloseVisible={isCloseVisible} {...props} />
           <StoryContent stories={stories} active={isActive} activeStory={activeStory} />
         </Animated.View>
       </Animated.View>

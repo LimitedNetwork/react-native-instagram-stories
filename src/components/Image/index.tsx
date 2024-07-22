@@ -8,11 +8,11 @@ import Loader from '../Loader';
 import { HEIGHT, LOADER_COLORS, WIDTH } from '../../core/constants';
 import ImageStyles from './Image.styles';
 import StoryVideo from './video';
-import { StoryItemProps } from '~/core/dto/instagramStoriesDTO';
+import { StoryItemProps } from '../../core/dto/instagramStoriesDTO';
 
 const StoryImage: FC<StoryImageProps> = ( {
   stories, activeStory, defaultStory, isDefaultVideo, paused, videoProps, isActive,
-  mediaContainerStyle, imageStyles, imageProps, videoDuration, onImageLayout, onLoad,
+  mediaContainerStyle, imageStyles, imageProps, videoDuration, onImageLayout, onLoad, isFullScreen,
 } ) => {
 
   const [ data, setData ] = useState<{ data?: StoryItemProps, isVideo?: boolean }>(
@@ -94,9 +94,9 @@ const StoryImage: FC<StoryImageProps> = ( {
 
   return (
     <>
-      <View style={ImageStyles.container}>
+      {/*<View style={ImageStyles.container}>
         <Loader loading={loading} color={color} size={50} />
-      </View>
+      </View>*/}
       <View style={[ ImageStyles.image, mediaContainerStyle ]}>
         {( data.data?.source || data.data?.sourceUrl ) && (
           data.isVideo ? (
@@ -106,13 +106,21 @@ const StoryImage: FC<StoryImageProps> = ( {
               source={data.data.source ?? { uri: data.data.sourceUrl }}
               paused={isPaused}
               isActive={isActive}
+              isFullScreen={isFullScreen}
               {...videoProps}
             />
           ) : (
             <Image
               source={data.data.source ?? { uri: data.data.sourceUrl }}
-              style={[ { width: WIDTH, aspectRatio: 0.5626 }, imageStyles ]}
-              resizeMode="contain"
+              {...(
+                isFullScreen ? {
+                  resizeMode: 'cover',
+                  style: { width: WIDTH, height: HEIGHT },
+                } : {
+                  resizeMode: 'contain',
+                  style: [ { width: WIDTH, aspectRatio: 0.5626 }, imageStyles ]
+                }
+              )}
               testID="storyImageComponent"
               onLayout={( e ) => onImageLayout( Math.min( HEIGHT, e.nativeEvent.layout.height ) )}
               onLoad={() => onContentLoad()}

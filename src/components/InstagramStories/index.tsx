@@ -12,6 +12,7 @@ import {
   STORY_AVATAR_SIZE, AVATAR_SIZE, BACKGROUND_COLOR, CLOSE_COLOR,
 } from '../../core/constants';
 import StoryModal from '../Modal';
+import StoryView from '../StoryView';
 import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
 
 const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStoriesProps>( ( {
@@ -35,6 +36,9 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   closeIconColor = CLOSE_COLOR,
   isVisible = false,
   hideAvatarList = false,
+  isModalRepresentation = true,
+  isFullScreen = false,
+  isCloseVisible = true,
   ...props
 }, ref ) => {
 
@@ -246,20 +250,41 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         ) ) )}
       </ScrollView>
       )}
-      <StoryModal
-        ref={modalRef}
-        stories={data}
-        seenStories={seenStories}
-        duration={animationDuration}
-        storyAvatarSize={storyAvatarSize}
-        onLoad={onLoad}
-        onSeenStoriesChange={onSeenStoriesChange}
-        backgroundColor={backgroundColor}
-        videoDuration={videoAnimationMaxDuration}
-        videoProps={videoProps}
-        closeIconColor={closeIconColor}
-        {...props}
-      />
+      {isModalRepresentation ? (
+        <StoryModal
+          ref={modalRef}
+          stories={data}
+          seenStories={seenStories}
+          duration={animationDuration}
+          storyAvatarSize={storyAvatarSize}
+          onLoad={onLoad}
+          onSeenStoriesChange={onSeenStoriesChange}
+          backgroundColor={backgroundColor}
+          videoDuration={videoAnimationMaxDuration}
+          videoProps={videoProps}
+          closeIconColor={closeIconColor}
+          isFullScreen={isFullScreen}
+          isCloseVisible={isCloseVisible}
+          {...props}
+        />
+      ) : (
+        <StoryView
+          ref={modalRef}
+          stories={data}
+          seenStories={seenStories}
+          duration={animationDuration}
+          storyAvatarSize={storyAvatarSize}
+          onLoad={onLoad}
+          onSeenStoriesChange={onSeenStoriesChange}
+          backgroundColor={backgroundColor}
+          videoDuration={videoAnimationMaxDuration}
+          videoProps={videoProps}
+          closeIconColor={closeIconColor}
+          isFullScreen={isFullScreen}
+          isCloseVisible={isCloseVisible}
+          {...props}
+        />
+      )}
     </>
   );
 

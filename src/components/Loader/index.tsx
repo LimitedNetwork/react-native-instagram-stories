@@ -32,6 +32,7 @@ const Loader: FC<StoryLoaderProps> = ( {
     strokeDashoffset: interpolate( progress.value, [ 0, 1 ], [ 0, CIRCUMFERENCE * 2 / 3 ] ),
   } ) );
   const animatedStyles = useAnimatedStyle( () => ( {
+  // @ts-ignore
     transform: [ { rotate: `${rotation.value}deg` } ],
   } ) );
 
