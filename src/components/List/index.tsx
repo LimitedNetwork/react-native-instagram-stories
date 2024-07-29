@@ -64,7 +64,7 @@ const StoryList: FC<StoryListProps> = ( {
 
         />
         <Animated.View style={[ contentStyles, ListStyles.content,
-          {marginTop: isFullScreen ? topInset : 0, marginBottom: isFullScreen ?  bottomInset : 0 }
+          {marginTop: isFullScreen ? topInset : 0, marginBottom: isFullScreen ? 40 : 0 }
         ]}>
           {imageOverlayView}
           <Progress
